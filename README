@@ -1,1 +1,30 @@
-John Rules
+Lazy Loader
+===========
+
+got some expensive method call in you controller for some data that isn't always used in the view (perhaps it's referred to in a partial cache block)? Don't want to mess up your controller with duplicate conditionals from your views?
+
+use the lazy loader! it's easy and fun!
+
+if in your controller you previously had
+  
+  def index
+    @posts = Post.find_all_by_a_painfully_slow_method
+  end
+
+you would now write
+
+  def index
+    @posts = lazy_load { Post.find_all_by_a_painfully_slow_method }
+  end
+
+and your painfully slow finder methods will only be called if @posts is actually referred to in the view.
+
+This works by created a LazyLoader proxy object that takes the place of your collection (or whatever it is) and will instantiate your object the first time any method is called on it. It then caches your original object and routes all methods calls through. 
+
+You will get a performance hit if you are calling many methods on your object, but the common case for these is returning a collection of ActiveRecord::Base and once you've called each you're done with the proxy.
+
+Hopefully this can help you keep your data code neat and tidy in the face of caching and nasty complex views
+
+
+=====================================
+Copyright 2008 John Barton and Envato
