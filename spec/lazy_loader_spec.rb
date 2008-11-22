@@ -24,4 +24,16 @@ describe LazyLoader do
   it 'should pretend to be the original object' do
     @object.is_a?(String).should == true
   end
+  
+  it "should respond_to the original object's methods" do
+    @object.should respond_to(:chomp)
+  end
+end
+
+describe "include Lazy" do
+  include Lazy
+  
+  it "lazy { 2 + 2 }.should == 4, damn that's lazy!" do
+    lazy { 2 + 2 }.should == 4
+  end
 end
