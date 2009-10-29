@@ -25,6 +25,7 @@ You will get a performance hit if you are calling many methods on your object, b
 
 Hopefully this can help you keep your data code neat and tidy in the face of caching and nasty complex views
 
+See http://gist.github.com/50426 for a short list of the nilClass gotchas
 
 =====================================
 Copyright 2008 John Barton and Envato
